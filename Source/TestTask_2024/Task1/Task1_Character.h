@@ -1,0 +1,53 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "InputAction.h"
+#include "InputActionValue.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "Task1_Character.generated.h"
+//====================================================================================================================================================================
+UCLASS()
+class TESTTASK_2024_API ATask1_Character : public ACharacter
+{
+	GENERATED_BODY()
+
+public:
+	ATask1_Character();
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
+	UCameraComponent* Camera;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
+	USpringArmComponent* CameraBoom;
+	
+
+
+
+
+
+
+//Enhanced input
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
+	UInputMappingContext* DefaultMappingContext;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
+	UInputAction* MoveAction;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
+	UInputAction* LookAction;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
+	UInputAction* ItteractAction;//E
+
+//Other
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Controller")
+	APlayerController* MainCharacterController;
+//====================================================================================================================================================================
+protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
+	void Itterack();
+};
