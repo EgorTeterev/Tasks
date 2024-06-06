@@ -17,4 +17,6 @@ class TESTTASK_2024_API IItteractInterface
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interface")
+	void Itteract();
 };

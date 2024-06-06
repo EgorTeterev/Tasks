@@ -13,10 +13,13 @@ class TESTTASK_2024_API ATask1_TargetActor : public AActor,public IItteractInter
 public:	
 	ATask1_TargetActor();
 
-
-
-
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
+	float DistanceToCharacter;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
+	bool bIsInViewPort;
+	virtual void Itteract_Implementation() override;
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	
 };

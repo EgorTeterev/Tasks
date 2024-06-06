@@ -46,6 +46,8 @@ public:
 //Other
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Controller")
 	APlayerController* Test1_Character_Controller;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Objectives")
+	TArray<TSubclassOf<ATask1_TargetActor>> Objectives;
 //====================================================================================================================================================================
 protected:
 	virtual void BeginPlay() override;

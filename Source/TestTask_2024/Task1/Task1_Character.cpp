@@ -42,7 +42,7 @@ void ATask1_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATask1_Character::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATask1_Character::Look);
-		EnhancedInputComponent->BindAction(ItteractAction, ETriggerEvent::Triggered, this, &ATask1_Character::Itteract);
+		EnhancedInputComponent->BindAction(ItteractAction, ETriggerEvent::Started, this, &ATask1_Character::Itteract);
 
 	}
 }
@@ -75,6 +75,8 @@ void ATask1_Character::Look(const FInputActionValue& Value)
 }
 void ATask1_Character::Itteract()
 {
+	if (!Cast<ATask1_TargetActor>(FocuseActor)) return;
+	FocuseActor->Itteract_Implementation();
 }
 //====================================================================================================================================================================
 void ATask1_Character::FocusingItteractable()
@@ -116,7 +118,7 @@ void ATask1_Character::FocusingItteractable()
 	{
 	//	DrawDebugPoint(GetWorld(), CharacterHitResult.ImpactPoint, 16.0f, FColor::Blue, false, 3.0f, 5);
 		ItteractableActor = Cast<IItteractInterface>(CharacterHitResult.GetActor());
-		UE_LOG(LogTemp, Warning, TEXT("You can interact with %s"), *CharacterHitResult.GetActor()->GetName());
+	//	UE_LOG(LogTemp, Warning, TEXT("You can interact with %s"), *CharacterHitResult.GetActor()->GetName());
 		FocuseActor = Cast<ATask1_TargetActor>(CharacterHitResult.GetActor());
 		return;
 	}
