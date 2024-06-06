@@ -3,11 +3,14 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Task1_TargetActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Kismet/GameplayStatics.h"
+#include "ItteractInterface.h"
 #include "Task1_Character.generated.h"
 //====================================================================================================================================================================
 UCLASS()
@@ -24,10 +27,11 @@ public:
 	USpringArmComponent* CameraBoom;
 	
 
-
-
-
-
+//Stats
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
+	float ItteractionDistance = 500.0f;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
+	ATask1_TargetActor* FocuseActor = nullptr;
 
 //Enhanced input
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
@@ -41,7 +45,7 @@ public:
 
 //Other
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Controller")
-	APlayerController* MainCharacterController;
+	APlayerController* Test1_Character_Controller;
 //====================================================================================================================================================================
 protected:
 	virtual void BeginPlay() override;
@@ -49,5 +53,6 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
-	void Itterack();
+	void Itteract();
+	void FocusingItteractable();
 };
