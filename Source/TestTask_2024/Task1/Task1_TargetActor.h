@@ -21,12 +21,10 @@ public:
 	float DistanceToCharacter;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	bool bIsInViewPort;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
-	FVector2D VectorToShowWidget;
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	FVector2D ScreenPosition;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
-
 	FVector2D ClampedPosition;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	int32 ViewPortSizeX;
