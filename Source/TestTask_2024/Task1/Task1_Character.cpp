@@ -17,16 +17,15 @@ ATask1_Character::ATask1_Character()
 void ATask1_Character::BeginPlay()
 { 
 	Super::BeginPlay();
-	
+//Input	
 	Test1_Character_Controller = Cast<APlayerController>(GetController());
 	if (Test1_Character_Controller) {
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(Test1_Character_Controller->GetLocalPlayer())) {
-			UE_LOG(LogTemp, Warning, TEXT("Enhanced input subsystem is ok"));
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
 }
-//====================================================================================================================================================================
+
 void ATask1_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -43,7 +42,6 @@ void ATask1_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATask1_Character::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATask1_Character::Look);
 		EnhancedInputComponent->BindAction(ItteractAction, ETriggerEvent::Started, this, &ATask1_Character::Itteract);
-
 	}
 }
 //====================================================================================================================================================================
@@ -57,16 +55,12 @@ void ATask1_Character::Move(const FInputActionValue& Value)
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-	//UE_LOG(LogTemp, Warning, TEXT("Forward Direction %s"), *ForwardDirection.ToString());
-	//UE_LOG(LogTemp, Warning, TEXT("Right Direction %s"), *RightDirection.ToString());
-
 	AddMovementInput(ForwardDirection, MovementVector.Y);
 	AddMovementInput(RightDirection, MovementVector.X);
 }
 //====================================================================================================================================================================
 void ATask1_Character::Look(const FInputActionValue& Value)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Look action"));
 
 	const FVector2D LookVector = Value.Get<FVector2D>();
 
@@ -76,7 +70,7 @@ void ATask1_Character::Look(const FInputActionValue& Value)
 void ATask1_Character::Itteract()
 {
 	if (!Cast<ATask1_TargetActor>(FocuseActor)) return;
-	FocuseActor->Itteract_Implementation();
+	FocuseActor->Itteract();
 }
 //====================================================================================================================================================================
 void ATask1_Character::FocusingItteractable()
@@ -84,27 +78,27 @@ void ATask1_Character::FocusingItteractable()
 	Test1_Character_Controller = GetController<APlayerController>();
 
 	if (!Controller) return;
+	FocuseActor = nullptr;
 	//get camera location and rotation to trace at the place,camera looking;
 	FVector ViewLocation;
 	FRotator ViewRotation;
 	Controller->GetPlayerViewPoint(ViewLocation,ViewRotation);
 
-	//start tracing from camera location to understand,if we focused on itteractable item.
+	//start tracing from camera location to understand,if we are focused on itteractable item.
 	FVector TraceStart = ViewLocation;
 	FVector TraceDirection = ViewRotation.Vector();
 	FVector TraceEnd = TraceStart + TraceDirection * ItteractionDistance;
 
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility);
-	//DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 3.0f, 0, 3.0f);
-	FocuseActor = nullptr;
+
 	if (!HitResult.bBlockingHit) return;
 	IItteractInterface* ItteractableActor = Cast<IItteractInterface>(HitResult.GetActor());
 	if (!ItteractableActor) return;
 
 	/*
 	camera hited itteractable item,can we acces it?
-	We should take ItteractableActor location,and trace from character location to ItteractableActor,if there is a wall between them->return false
+	trace from character location to ItteractableActor,if there is a wall between them
 	*/
 
 	FHitResult CharacterHitResult;
@@ -112,18 +106,12 @@ void ATask1_Character::FocusingItteractable()
 	FVector CharacterTraceEnd = HitResult.GetActor()->GetActorLocation();
 
 	GetWorld()->LineTraceSingleByChannel(CharacterHitResult, CharacterTraceStart, CharacterTraceEnd, ECollisionChannel::ECC_Visibility);
-	//DrawDebugLine(GetWorld(), CharacterTraceStart, CharacterTraceEnd, FColor::Red,false, 3.0f, 0, 3.0f);
-
 	if (CharacterHitResult.bBlockingHit && CharacterHitResult.GetActor() == HitResult.GetActor())
 	{
-	//	DrawDebugPoint(GetWorld(), CharacterHitResult.ImpactPoint, 16.0f, FColor::Blue, false, 3.0f, 5);
 		ItteractableActor = Cast<IItteractInterface>(CharacterHitResult.GetActor());
-	//	UE_LOG(LogTemp, Warning, TEXT("You can interact with %s"), *CharacterHitResult.GetActor()->GetName());
 		FocuseActor = Cast<ATask1_TargetActor>(CharacterHitResult.GetActor());
 		return;
 	}
-
-	
 
 }
 

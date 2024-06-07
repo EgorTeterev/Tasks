@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ItteractInterface.h"
+#include "GameFramework/Controller.h"
 #include "Task1_TargetActor.generated.h"
 
 //====================================================================================================================================================================
@@ -17,7 +18,7 @@ public:
 	float DistanceToCharacter;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	bool bIsInViewPort;
-	virtual void Itteract_Implementation() override;
+	void Itteract();
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

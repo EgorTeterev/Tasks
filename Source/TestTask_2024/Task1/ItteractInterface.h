@@ -9,9 +9,6 @@ class UItteractInterface : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class TESTTASK_2024_API IItteractInterface
 {
 	GENERATED_BODY()

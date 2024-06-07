@@ -1,6 +1,4 @@
-
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/Controller.h"
 #include "Task1_Controller.generated.h"

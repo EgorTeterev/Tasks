@@ -30,8 +30,7 @@ public:
 //Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	float ItteractionDistance = 500.0f;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
-	ATask1_TargetActor* FocuseActor = nullptr;
+
 
 //Enhanced input
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
@@ -43,11 +42,14 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
 	UInputAction* ItteractAction;//E
 
+
 //Other
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Controller")
 	APlayerController* Test1_Character_Controller;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Objectives")
-	TArray<TSubclassOf<ATask1_TargetActor>> Objectives;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Focused Actor")
+	ATask1_TargetActor* FocuseActor = nullptr;
+
+
 //====================================================================================================================================================================
 protected:
 	virtual void BeginPlay() override;
