@@ -13,7 +13,7 @@ ATask1_Character::ATask1_Character()
 	Camera->SetupAttachment(CameraBoom);
 
 }
-//====================================================================================================================================================================
+
 void ATask1_Character::BeginPlay()
 { 
 	Super::BeginPlay();
@@ -58,7 +58,7 @@ void ATask1_Character::Move(const FInputActionValue& Value)
 	AddMovementInput(ForwardDirection, MovementVector.Y);
 	AddMovementInput(RightDirection, MovementVector.X);
 }
-//====================================================================================================================================================================
+
 void ATask1_Character::Look(const FInputActionValue& Value)
 {
 
@@ -67,11 +67,7 @@ void ATask1_Character::Look(const FInputActionValue& Value)
 	AddControllerYawInput(LookVector.X);
 	AddControllerPitchInput(-LookVector.Y);
 }
-void ATask1_Character::Itteract()
-{
-	if (!Cast<ATask1_TargetActor>(FocuseActor)) return;
-	FocuseActor->Itteract();
-}
+
 //====================================================================================================================================================================
 void ATask1_Character::FocusingItteractable()
 {
@@ -115,3 +111,9 @@ void ATask1_Character::FocusingItteractable()
 
 }
 
+//====================================================================================================================================================================
+void ATask1_Character::Itteract()
+{
+	if (!Cast<ATask1_TargetActor>(FocuseActor)) return;
+	FocuseActor->Itteract();
+}
