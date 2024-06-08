@@ -16,6 +16,8 @@ void UTask05_ShootActorComponent::StartFocuse()
 
 void UTask05_ShootActorComponent::EndFocuse()
 {
+	Platform->SetActorEnableCollision(true);
+	MakeShot();
 	bIsFocusing = false;
 	bIsPlatformSpawned = false;
 }
@@ -25,18 +27,18 @@ void UTask05_ShootActorComponent::PredictProjectileMovement()
 	if (!GetOwner()) return;
 	ACharacter* Character = Cast<ACharacter>(GetOwner());
 
-	FRotator ControlRotation = Character->GetControlRotation();
+	ControlRotation = Character->GetControlRotation();
 	ProjectileSpawnLocation = Character->GetActorLocation() + ControlRotation.Vector() * 100.0f;
 	ProjectileLaunchVelocity = ControlRotation.Vector() * 1000.0f;
 
 	FPredictProjectilePathParams PredictParams;
 	PredictParams.StartLocation = ProjectileSpawnLocation;
 	PredictParams.LaunchVelocity = ProjectileLaunchVelocity;
-	PredictParams.bTraceWithCollision = true; // Включает трассировку с учётом столкновений
-	PredictParams.ProjectileRadius = 5.0f; // Радиус снаряда
-	PredictParams.MaxSimTime = 3.0f; // Максимальное время симуляции
-	PredictParams.SimFrequency = 15.0f; // Частота симуляции
-	PredictParams.OverrideGravityZ = -980.f; // Гравитация
+	PredictParams.bTraceWithCollision = true;
+	PredictParams.ProjectileRadius = 5.0f; 
+	PredictParams.MaxSimTime = 3.0f; 
+	PredictParams.SimFrequency = 15.0f; 
+	PredictParams.OverrideGravityZ = -980.f; 
 
 	FPredictProjectilePathResult PredictResult;
 	bool bHit = UGameplayStatics::PredictProjectilePath(this, PredictParams, PredictResult);
@@ -63,6 +65,14 @@ void UTask05_ShootActorComponent::PredictProjectileMovement()
 				Platform->SetActorLocation(PredictResult.HitResult.Location);
 			}
 	}
+}
+
+void UTask05_ShootActorComponent::MakeShot()
+{
+
+	FActorSpawnParameters SpawnParams;
+	Projectile = GetWorld()->SpawnActor<ATask05_Projectile>(ProjectileClass, ProjectileSpawnLocation, ControlRotation, SpawnParams);
+	Projectile->ProjectileMovementComponent->InitialSpeed = 1000.0f;
 }
 
 // Called when the game starts

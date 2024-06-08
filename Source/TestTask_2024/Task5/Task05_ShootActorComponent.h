@@ -19,6 +19,9 @@ class TESTTASK_2024_API UTask05_ShootActorComponent : public UActorComponent
 public:	
 	UTask05_ShootActorComponent();
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
+	float ProjectileSpeed = 1000.0f;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Platform class to spawn")
 	TSubclassOf<ATask05_HitPlace> PlatformClass;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Projectile class to spawn")
@@ -31,13 +34,14 @@ public:
 
 	FVector ProjectileSpawnLocation;
 	FVector ProjectileLaunchVelocity;
-
+	FRotator ControlRotation;
 	void StartFocuse();
 	void EndFocuse();
 private:
 	bool bIsFocusing = false;
 	bool bIsPlatformSpawned = false;
 	void PredictProjectileMovement();
+	void MakeShot();
 protected:
 	virtual void BeginPlay() override;	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;	

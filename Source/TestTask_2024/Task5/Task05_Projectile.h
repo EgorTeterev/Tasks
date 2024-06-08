@@ -12,9 +12,9 @@ class TESTTASK_2024_API ATask05_Projectile : public AActor
 	
 public:	
 	ATask05_Projectile();
-
 	UPROPERTY(VisibleAnywhere)
 	UProjectileMovementComponent* ProjectileMovementComponent;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

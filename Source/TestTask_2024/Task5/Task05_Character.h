@@ -4,12 +4,10 @@
 #include "Camera/CameraComponent.h"
 #include "Task05_ShootActorComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Components/StaticMeshComponent.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-
 #include "Task05_Character.generated.h"
 //====================================================================================================================================================================
 
@@ -44,8 +42,8 @@ public:
 private:
 	bool bIsFocusing;
 	bool bIsPlatformSpawned;
-	FVector SpawnLocation;
-	FVector LaunchVelocity;
+
+
 protected:
 	virtual void BeginPlay() override;
 	void Look(const FInputActionValue& Value);

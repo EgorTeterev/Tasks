@@ -13,6 +13,7 @@ ATask05_Character::ATask05_Character()
 
 	ShootComponent = CreateDefaultSubobject<UTask05_ShootActorComponent>(TEXT("Shoot component"));
 
+
 }
 
 void ATask05_Character::BeginPlay()
