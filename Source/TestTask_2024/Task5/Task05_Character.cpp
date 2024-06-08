@@ -72,45 +72,60 @@ void ATask05_Character::StartFocuse()
 {
 	if (!bIsFocusing) bIsFocusing = true;
 	if (!GetWorld()) return;
-	if (!bIsPlatformSpawned) {
-		FActorSpawnParameters SpawnParams;
-	//	AActor* SpawnedPlatform = GetWorld()->SpawnActor<AActor>(Platform,SpawnLocation,SpawnRotation,SpawnParams);
+	
+	SpawnLocation = GetActorLocation()+GetControlRotation().Vector()*100.0f;
+	LaunchVelocity = GetControlRotation().Vector() * 1000.0f;
+
+	FPredictProjectilePathParams PredictParams;
+	PredictParams.StartLocation = SpawnLocation;
+	PredictParams.LaunchVelocity = LaunchVelocity;
+	PredictParams.bTraceWithCollision = true; // Включает трассировку с учётом столкновений
+	PredictParams.ProjectileRadius = 5.0f; // Радиус снаряда
+	PredictParams.MaxSimTime = 3.0f; // Максимальное время симуляции
+	PredictParams.SimFrequency = 15.0f; // Частота симуляции
+	PredictParams.OverrideGravityZ = -980.f; // Гравитация
+
+	FPredictProjectilePathResult PredictResult;
+
+	bool bHit = UGameplayStatics::PredictProjectilePath(this, PredictParams, PredictResult);
+
+	if (bHit)
+	{
+		
+		// Если был хит, то можно обработать результаты, например, нарисовать траекторию
+		int temp = 0;
+		for (const FPredictProjectilePathPointData& PointData : PredictResult.PathData)
+		{
+			if (!(temp % 3)) {
+				DrawDebugSphere(GetWorld(), PointData.Location, 15.0f, 12, FColor::Red, false, 0.1f);
+			}
+			temp++;
+		}
+		if (!bIsPlatformSpawned) {
+			FActorSpawnParameters SpawnParams;
+			FVector PlatformSpawnLocation =  PredictResult.HitResult.Location;
+			FRotator PlatformSpawnRotation = GetControlRotation();
+			SpawnedPlatform = GetWorld()->SpawnActor<AActor>(Platform, PlatformSpawnLocation, PlatformSpawnRotation, SpawnParams);
+			SpawnedPlatform->SetActorEnableCollision(false);
+			bIsPlatformSpawned = true;
+		}
+		else {
+			SpawnedPlatform->SetActorLocation(PredictResult.HitResult.Location);
+		}
 	}
-
-
-
-	APlayerController* PlayerController = GetController<APlayerController>();
-	if (!PlayerController) return;
-
-	FVector  ViewLocation;
-	FRotator ViewRotation;
-	Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
-
-	FVector TraceStart = ViewLocation;
-	FVector ShootDirection = ViewRotation.Vector();
-	FVector TraceEnd = TraceStart + ShootDirection * MaxDistanceToShoot;
-
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Blue,1.0f,0,3.0f);
-	FHitResult HitResult;
-	GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility);
-
-	if (!HitResult.bBlockingHit) return;
-	LocationToSpawnPlatform = HitResult.Location;
-
-
-	FVector CharacterTraceStart = GetActorForwardVector();
-	FVector CharacterTraceEnd = TraceEnd;
-
 }
 
 void ATask05_Character::EndFocuse()
 {
 	bIsFocusing = false;
-	//MakeShot();
+	bIsPlatformSpawned = false;
+	MakeShot(SpawnLocation, LaunchVelocity);
 }
 
-void ATask05_Character::MakeShot(FVector ShootVector)
+void ATask05_Character::MakeShot(FVector ShootVector, FVector ShootVelocity)
 {
+	FActorSpawnParameters SpawnParams;
+	AActor* SpawnedProjectile = GetWorld()->SpawnActor<AActor>(Projectile, SpawnLocation, FRotator::ZeroRotator, SpawnParams);
 
 }
 

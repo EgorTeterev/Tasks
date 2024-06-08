@@ -10,7 +10,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "DrawDebugHelpers.h"
 #include "Task05_Character.generated.h"
 
 UCLASS()
@@ -54,19 +55,20 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Platform")
 	FVector LocationToSpawnPlatform;
 	
+	AActor* SpawnedPlatform = nullptr;
 private:
-	UPROPERTY()
 	bool bIsFocusing;
-	UPROPERTY()
 	bool bIsPlatformSpawned;
-
+	FVector SpawnLocation;
+	FVector LaunchVelocity;
 protected:
 	virtual void BeginPlay() override;
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
 	void StartFocuse();
 	void EndFocuse();
-	void MakeShot(FVector ShootVector);
+	UFUNCTION(BlueprintCallable)
+	void MakeShot(FVector ShootVector, FVector ShootVelocity);
 public:	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
