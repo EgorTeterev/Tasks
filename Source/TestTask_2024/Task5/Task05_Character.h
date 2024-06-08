@@ -25,6 +25,9 @@ public:
 	USpringArmComponent* CameraBoom;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
 	UTask05_ShootActorComponent* ShootComponent;
+//Stats
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
+	float CurrentSpeed = 200.0f;
 
 
 	//Enhanced input
@@ -32,6 +35,10 @@ public:
 	UInputMappingContext* DefaultMappingContext;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
 	UInputAction* LookAction;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
+	UInputAction* UpSpeedAction;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
+	UInputAction* DownSpeedAction;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
 	UInputAction* ShootAction;//LMB
 
@@ -47,9 +54,9 @@ private:
 protected:
 	virtual void BeginPlay() override;
 	void Look(const FInputActionValue& Value);
-
 public:	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	void UpSpeed() { CurrentSpeed += 50.0f; };
+	void DownSpeed() { CurrentSpeed -= 50.0f; };
 };

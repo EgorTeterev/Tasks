@@ -12,7 +12,7 @@ class TESTTASK_2024_API ATask05_Projectile : public AActor
 	
 public:	
 	ATask05_Projectile();
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
 	UProjectileMovementComponent* ProjectileMovementComponent;
 
 protected:

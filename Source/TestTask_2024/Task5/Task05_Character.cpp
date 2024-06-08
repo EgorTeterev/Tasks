@@ -41,6 +41,8 @@ void ATask05_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATask05_Character::Look);
+		EnhancedInputComponent->BindAction(UpSpeedAction, ETriggerEvent::Triggered, this, &ATask05_Character::UpSpeed);
+		EnhancedInputComponent->BindAction(DownSpeedAction, ETriggerEvent::Triggered, this, &ATask05_Character::DownSpeed);
 		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, ShootComponent, &UTask05_ShootActorComponent::StartFocuse);
 		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Completed, ShootComponent, &UTask05_ShootActorComponent::EndFocuse);
 	}

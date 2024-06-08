@@ -19,9 +19,6 @@ class TESTTASK_2024_API UTask05_ShootActorComponent : public UActorComponent
 public:	
 	UTask05_ShootActorComponent();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
-	float ProjectileSpeed = 1000.0f;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Platform class to spawn")
 	TSubclassOf<ATask05_HitPlace> PlatformClass;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Projectile class to spawn")
