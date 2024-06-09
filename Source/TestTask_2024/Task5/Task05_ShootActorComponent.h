@@ -5,12 +5,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "DrawDebugHelpers.h"
-#include "GameFramework/ProjectileMovementComponent.h"
 #include "Task05_HitPlace.h"
 #include "Task05_Projectile.h"
 #include "Task05_ShootActorComponent.generated.h"
-
-
+//====================================================================================================================================================================
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TESTTASK_2024_API UTask05_ShootActorComponent : public UActorComponent
 {
@@ -28,17 +26,19 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Platform")
 	ATask05_HitPlace* Platform;
 
-
 	FVector ProjectileSpawnLocation;
 	FVector ProjectileLaunchVelocity;
 	FRotator ControlRotation;
+
 	void StartFocuse();
 	void EndFocuse();
+
 private:
 	bool bIsFocusing = false;
 	bool bIsPlatformSpawned = false;
 	void PredictProjectileMovement();
 	void MakeShot();
+
 protected:
 	virtual void BeginPlay() override;	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;	

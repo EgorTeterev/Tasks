@@ -2,7 +2,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "ItteractInterface.generated.h"
-
+//====================================================================================================================================================================
 UINTERFACE(MinimalAPI)
 class UItteractInterface : public UInterface
 {

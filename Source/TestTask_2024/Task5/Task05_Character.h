@@ -10,7 +10,6 @@
 #include "EnhancedInputSubsystems.h"
 #include "Task05_Character.generated.h"
 //====================================================================================================================================================================
-
 UCLASS()
 class TESTTASK_2024_API ATask05_Character : public ACharacter
 {
@@ -18,19 +17,19 @@ class TESTTASK_2024_API ATask05_Character : public ACharacter
 
 public:
 	ATask05_Character();
-	//Components
+//Components
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
 	UCameraComponent* Camera;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
 	USpringArmComponent* CameraBoom;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
 	UTask05_ShootActorComponent* ShootComponent;
+
 //Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	float CurrentSpeed = 200.0f;
 
-
-	//Enhanced input
+// input
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
@@ -42,7 +41,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
 	UInputAction* ShootAction;//LMB
 
-	//Other
+//Other
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Controller")
 	APlayerController* Test05_Character_Controller;
 

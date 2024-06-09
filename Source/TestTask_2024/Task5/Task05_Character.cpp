@@ -1,5 +1,5 @@
 #include "Task05_Character.h"
-
+//====================================================================================================================================================================
 ATask05_Character::ATask05_Character()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -13,9 +13,8 @@ ATask05_Character::ATask05_Character()
 
 	ShootComponent = CreateDefaultSubobject<UTask05_ShootActorComponent>(TEXT("Shoot component"));
 
-
 }
-
+//====================================================================================================================================================================
 void ATask05_Character::BeginPlay()
 {
 	Super::BeginPlay();

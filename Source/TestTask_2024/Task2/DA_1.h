@@ -3,7 +3,6 @@
 #include "Engine/DataAsset.h"
 #include "Engine/Texture2D.h"
 #include "DA_1.generated.h"
-
 class UDA_2;
 //====================================================================================================================================================================
 USTRUCT(BlueprintType)
@@ -13,12 +12,10 @@ struct FMyStruct
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Struct")
 	UDA_2* Data_Asset_2;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Struct")
 	FName Name;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Struct")
 	UTexture2D* Texture;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector Vector;
 };

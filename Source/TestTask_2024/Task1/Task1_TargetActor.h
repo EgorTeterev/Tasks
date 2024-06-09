@@ -16,12 +16,11 @@ class TESTTASK_2024_API ATask1_TargetActor : public AActor,public IItteractInter
 	
 public:	
 	ATask1_TargetActor();
-
+//Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	float DistanceToCharacter;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	bool bIsInViewPort;
-	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	FVector2D ScreenPosition;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
@@ -30,13 +29,12 @@ public:
 	int32 ViewPortSizeX;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	int32 ViewPortSizeY;
-//target location is static,so we can check it one,on BeginPlay()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	FVector TargetLocation;
 
+//Other
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")
 	ACharacter* Character;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character location")
 	FVector CharacterLocation;
 	void Itteract();

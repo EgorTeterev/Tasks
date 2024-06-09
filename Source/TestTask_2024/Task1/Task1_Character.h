@@ -4,7 +4,6 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Task1_TargetActor.h"
-#include "Components/StaticMeshComponent.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "EnhancedInputComponent.h"
@@ -26,11 +25,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Components")
 	USpringArmComponent* CameraBoom;
 	
-
 //Stats
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Stats")
 	float ItteractionDistance = 500.0f;
-
 
 //Enhanced input
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
@@ -42,13 +39,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Input")
 	UInputAction* ItteractAction;//E
 
-
 //Other
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Controller")
 	APlayerController* Test1_Character_Controller;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Focused Actor")
 	ATask1_TargetActor* FocuseActor = nullptr;
-
 
 //====================================================================================================================================================================
 protected:

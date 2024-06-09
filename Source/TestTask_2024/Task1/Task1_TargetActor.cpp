@@ -5,11 +5,7 @@ ATask1_TargetActor::ATask1_TargetActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 }
-//====================================================================================================================================================================
-void ATask1_TargetActor::Itteract()
-{
-	Execute_Itteract(this);
-}
+
 //====================================================================================================================================================================
 void ATask1_TargetActor::BeginPlay()
 {
@@ -52,4 +48,8 @@ void ATask1_TargetActor::IsInViewPort()
 	ClampedPosition.Y = FMath::Clamp(ClampedPosition.Y, 0, ViewPortSizeY);
 
 }
-
+//====================================================================================================================================================================
+void ATask1_TargetActor::Itteract()
+{
+	Execute_Itteract(this);
+}

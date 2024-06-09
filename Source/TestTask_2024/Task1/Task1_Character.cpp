@@ -13,7 +13,7 @@ ATask1_Character::ATask1_Character()
 	Camera->SetupAttachment(CameraBoom);
 
 }
-
+//====================================================================================================================================================================
 void ATask1_Character::BeginPlay()
 { 
 	Super::BeginPlay();
@@ -108,7 +108,6 @@ void ATask1_Character::FocusingItteractable()
 		FocuseActor = Cast<ATask1_TargetActor>(CharacterHitResult.GetActor());
 		return;
 	}
-
 }
 
 //====================================================================================================================================================================
