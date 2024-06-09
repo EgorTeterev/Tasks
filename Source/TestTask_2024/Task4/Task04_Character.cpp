@@ -16,18 +16,23 @@ void ATask04_Character::BeginPlay()
 	Super::BeginPlay();
 	if (HasAuthority()) {
 		Object = NewObject<UReplicatedObject>(this);
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		FVector Location = { 300,300,300 };
+		ReplicatedActor = GetWorld()->SpawnActor<ADynamicReplicatedActor>(Location, FRotator::ZeroRotator, SpawnParams);
+		ReplicatedActor->SetHidden(false);
+		UE_LOG(LogTemp, Warning, TEXT("Everythn is spawned"));
 	}
 }
 
 
 
-
+//???????
 bool ATask04_Character::ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags)
 {
 	bool WroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
 
 	if (Object) WroteSomething |= Channel->ReplicateSubobject(Object, *Bunch, *RepFlags);
-
 	return WroteSomething;
 
 }
@@ -37,32 +42,8 @@ void ATask04_Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ATask04_Character, Object);
+	DOREPLIFETIME(ATask04_Character, ReplicatedActor);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -72,7 +53,6 @@ void ATask04_Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("Random Int: %d"), Object->IntToReplicate);
 }
 
 

@@ -1,9 +1,9 @@
 #include "ReplicatedObject.h"
 #include "Net/UnrealNetwork.h"
 
-UReplicatedObject::UReplicatedObject()
+UReplicatedObject::UReplicatedObject() 
 {
-	IntToReplicate = FMath::RandRange(0, 100);
+
 }
 
 void UReplicatedObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

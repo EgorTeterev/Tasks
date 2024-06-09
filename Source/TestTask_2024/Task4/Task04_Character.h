@@ -2,7 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "ReplicatedObject.h"
-
+#include "DynamicReplicatedActor.h"
 #include "Task04_Character.generated.h"
 
 UCLASS()
@@ -14,10 +14,14 @@ public:
 	ATask04_Character();
 
 
-	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Object")
+	UPROPERTY(Replicated, BlueprintReadWrite,EditAnywhere, Category = "Object")
 	UReplicatedObject* Object;
 
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere, Category = "Configurations")
+	TSubclassOf<ADynamicReplicatedActor> ActorToReplicate;
 
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere, Category = "Replicated Actor")
+	ADynamicReplicatedActor* ReplicatedActor;
 protected:
 	virtual void BeginPlay() override;
 
