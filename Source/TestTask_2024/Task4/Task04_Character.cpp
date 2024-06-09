@@ -1,19 +1,23 @@
 #include "Task04_Character.h"
 #include "Net/UnrealNetwork.h"
-// Sets default values
+
 ATask04_Character::ATask04_Character()
 {
 	PrimaryActorTick.bCanEverTick = true;
     bReplicates = true;
-
 }
 
 
-// Called when the game starts or when spawned
 void ATask04_Character::BeginPlay()
 {
 	Super::BeginPlay();
-
+	if (HasAuthority()) {
+		Object = NewObject<UReplicatedObject>(this);
+		if (Object)
+		{
+			Object->IntToReplicate = 50;
+		}
+	}
 }
 
 
@@ -23,12 +27,16 @@ void ATask04_Character::Tick(float DeltaTime)
 }
 
 
-
-
-
 void ATask04_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
 
+
+void ATask04_Character::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ATask04_Character, Object);
+}
